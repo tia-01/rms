@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from .models import Property, Room, Tenant, Payment
 from .serializers import PropertySerializer, RoomSerializer
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
+# from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .notifications import send_due_rent_emails
@@ -31,7 +31,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         serializer.save()
         
 @api_view(['GET'])
-@permission_classes([IsAdminUser]) 
+@permission_classes([IsAuthenticated]) 
 def send_due_rent_view(request):
     send_due_rent_emails()
     return Response({
